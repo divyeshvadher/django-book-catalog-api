@@ -1,0 +1,373 @@
+{
+	"info": {
+		"_postman_id": "3373fc3b-f92e-4317-b650-a4a575deabff",
+		"name": "Django Book Catalog API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35140962"
+	},
+	"item": [
+		{
+			"name": "Authentication Tests",
+			"item": [
+				{
+					"name": "Access without API Key",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Test Book\", \"author\": \"Test Author\", \"published_date\": \"2000-01-01\", \"isbn\": \"1234567890123\", \"page_count\": 123, \"language\": \"English\"}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/books/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"books",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Access with Invalid API Key",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "invalid-key"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/books/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"books",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Access with Valid API Key",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "valid-key"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/books/1/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"books",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Book CRUD",
+			"item": [
+				{
+					"name": "Create Book - Valid",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "valid-key"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"The Great Gatsby\", \"author\": \"F. Scott Fitzgerald\", \"published_date\": \"1925-04-10\", \"isbn\": \"9780743273565\", \"page_count\": 180, \"language\": \"English\"}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/books/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"books",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Book - Invalid ISBN",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "valid-key"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Bad Book\", \"author\": \"Unknown\", \"published_date\": \"2000-01-01\", \"isbn\": \"1234567890\", \"page_count\": 100, \"language\": \"Unknown\"}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/books/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"books",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Page Count",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "valid-key"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"The Great Gatsby\", \"author\": \"F. Scott Fitzgerald\", \"published_date\": \"1925-04-10\", \"isbn\": \"9780743273565\", \"page_count\": 300, \"language\": \"English\"}"
+						},
+						"url": {
+							"raw": "localhost:5000/api/books/1/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"books",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Book",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "valid-key"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/books/2/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"books",
+								"2",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "File Uploads",
+			"item": [
+				{
+					"name": "Upload Valid Cover Image",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "valid-key"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cover",
+									"type": "file",
+									"src": "/C:/Users/Divyesh/OneDrive - hhghg/Pictures/flag.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/api/books/1/upload-cover/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"books",
+								"1",
+								"upload-cover",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Large File (>2MB)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "valid-key"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cover",
+									"type": "file",
+									"src": "/C:/Users/Divyesh/OneDrive - hhghg/Pictures/d0431a54640c43b19b6c7850efa6b62e.mp4"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/api/books/1/upload-cover/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"books",
+								"1",
+								"upload-cover",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Invalid File Type (PDF)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "valid-key"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cover",
+									"type": "file",
+									"src": "/C:/Users/Divyesh/OneDrive - hhghg/Desktop/Django Core Concepts Assignment for The Candidates-2025061617304187.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/api/books/1/upload-cover/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"books",
+								"1",
+								"upload-cover",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Without File",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "valid-key"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "localhost:5000/api/books/3/upload-cover/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"books",
+								"3",
+								"upload-cover",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
